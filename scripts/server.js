@@ -5,7 +5,7 @@ const cors = require('cors')
 
 var server = express()
 server.use(cors())
-server.get("/:file", (req, res, next)=>{
+server.get("/file/:file", (req, res, next)=>{
   var file = req.params.file
   var music = musics.filter(m=> m.file==file)
   if (music.length > 0){
@@ -18,8 +18,13 @@ server.get("/:file", (req, res, next)=>{
 })
 
 server.get("/data/:name", (req, res, next)=>{
-  var name = req.params.name
-  res.sendFile(path.join(__dirname, '../data', name))
+    var name = req.params.name
+    res.sendFile(path.join(__dirname, '../data', name))
+})
+
+server.get("/preview/:name", (req, res, next)=>{
+    var name = req.params.name
+    res.sendFile(path.join(__dirname, '../data/preview', name))
 })
 
 console.log("Listening to port 3000...");

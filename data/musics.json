@@ -3,12 +3,14 @@
       "name": "Megalovania",
       "path": "E:\\Music\\undertale - megalovania.mp3",
       "file": "undertale - megalovania.mp3",
-      "location": "http://localhost:3000/undertale - megalovania.mp3"
+      "location": "http://localhost:3000/file/undertale - megalovania.mp3",
+      "preview": "http://localhost:3000/preview/1.jpg"
     },
     {
       "name": "Megalovania (Rock)",
       "path": "E:\\Music\\undertale - megalovania rock.mp3",
       "file": "undertale - megalovania rock.mp3",
-      "location": "http://localhost:3000/undertale - megalovania rock.mp3"
+      "location": "http://localhost:3000/file/undertale - megalovania rock.mp3",
+      "preview": "http://localhost:3000/preview/1.jpg"
     }
 ]
