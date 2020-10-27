@@ -1,6 +1,11 @@
 <template>
   <div>
-    <audio ref="player" controls>
+    <audio ref="player" controls 
+        @canplay="updatePaused" 
+        @playing="updatePaused" 
+        @pause="updatePaused" 
+        @loadedmetadata="updateDuration"
+        @timeupdate="updateSeekerTimer">
       <source :src="getCurrentSong ? getCurrentSong.location : null" />
     </audio>
     <div class="container-fluid" id="player-bar">
@@ -18,7 +23,12 @@
             <div class="col">
                 <div class="row">
                     <div class="col">
-                        [ progress bar ]
+                        <center>{{parseInt(songTimer)}} / {{parseInt(songLength)}}</center>
+                        <input type="range" name="seek" ref="seeker" min="0" step="0.25" style="width: 90%" 
+                        :max="songLength" 
+                        v-model="songTimer" 
+                        :disabled="getCurrentSong==null"
+                        @change="updatePlayerTimer">
                     </div>
                 </div>
                 <div class="row justify-content-md-center">
@@ -35,7 +45,7 @@
                 </div>
             </div>
             <div class="col-md-3 center" id="vol-bar">
-                <input type="range" value="1" id="vol-bar" class="player-vol-bar" min="0" max="1" step="0.01">
+                <input type="range" value="1" id="vol-bar" class="player-vol-bar" min="0" max="1" step="0.05" @change="setVolume" v-model="volume">
             </div>
         </div>
     </div>
@@ -49,7 +59,10 @@ export default {
   name: "Player",
   data: ()=>{
       return {
-          play: false
+          play: false,
+          volume: 1,
+          songLength: 0,
+          songTimer: 0
       }
   },
   computed: {
@@ -61,6 +74,12 @@ export default {
     },
     currentSongTitle(){
         return this.getCurrentSong!=null?this.getCurrentSong.name: ""
+    },
+    player() {
+        return this.$refs.player
+    },
+    seeker(){
+        return this.$refs.seeker
     }
   },
   methods: {
@@ -74,6 +93,23 @@ export default {
             this.$refs.player.play()
         else
             this.$refs.player.pause()
+    },
+    updatePaused(event) {
+      this.videoElement = event.target;
+      this.play = !event.target.paused;
+    },
+    setVolume() {
+        this.$refs.player.volume = this.volume
+    },
+    updateDuration(){
+        this.songLength = this.player.duration
+        console.log("duration updation called")
+    },
+    updateSeekerTimer(){
+        this.songTimer = this.player.currentTime
+    },
+    updatePlayerTimer(){
+        this.player.currentTime = this.songTimer
     }
   },
   watch: {
@@ -114,12 +150,12 @@ a {
 
 .player-btn{
     background: #fff;
-    width:30px;
-    height:30px;
+    width:40px;
+    height:40px;
     border:1px solid #fff;
     border-radius:50%;
     cursor:pointer;
-    background-size:30px 30px;
+    background-size:40px 40px;
     background-position:center;
 }
 .player-vol-bar{
