@@ -23,7 +23,7 @@
             <div class="col">
                 <div class="row">
                     <div class="col">
-                        <center>{{parseInt(songTimer)}} / {{parseInt(songLength)}}</center>
+                        <center>{{formattedSongTimer}} / {{formattedSongLength}}</center>
                         <input type="range" name="seek" ref="seeker" min="0" step="0.25" style="width: 90%" 
                         :max="songLength" 
                         v-model="songTimer" 
@@ -80,6 +80,28 @@ export default {
     },
     seeker(){
         return this.$refs.seeker
+    },
+    formattedSongLength(){
+        var sec_num = parseInt(this.songLength, 10)
+        var hours   = Math.floor(sec_num / 3600)
+        var minutes = Math.floor(sec_num / 60) % 60
+        var seconds = sec_num % 60
+
+        return [hours,minutes,seconds]
+            .map(v => v < 10 ? "0" + v : v)
+            .filter((v,i) => v !== "00" || i > 0)
+            .join(":")
+    },
+    formattedSongTimer(){
+        var sec_num = parseInt(this.songTimer, 10)
+        var hours   = Math.floor(sec_num / 3600)
+        var minutes = Math.floor(sec_num / 60) % 60
+        var seconds = sec_num % 60
+
+        return [hours,minutes,seconds]
+            .map(v => v < 10 ? "0" + v : v)
+            .filter((v,i) => v !== "00" || i > 0)
+            .join(":")
     }
   },
   methods: {
