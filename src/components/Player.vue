@@ -1,6 +1,6 @@
 <template>
   <div>
-    <audio ref="player" controls 
+    <audio ref="player" 
         @canplay="updatePaused" 
         @playing="updatePaused" 
         @pause="updatePaused" 
@@ -45,7 +45,9 @@
                 </div>
             </div>
             <div class="col-md-3 center" id="vol-bar">
-                <input type="range" value="1" id="vol-bar" class="player-vol-bar" min="0" max="1" step="0.05" @change="setVolume" v-model="volume">
+                <input type="range" value="1" id="vol-bar" class="player-vol-bar" min="0" max="1" step="0.05" 
+                @change="setVolume" 
+                v-model="volume">
             </div>
         </div>
     </div>
@@ -112,16 +114,16 @@ export default {
     playSong(){
         this.play = !this.play
         if(this.play)
-            this.$refs.player.play()
+            this.player.play()
         else
-            this.$refs.player.pause()
+            this.player.pause()
     },
     updatePaused(event) {
       this.videoElement = event.target;
       this.play = !event.target.paused;
     },
     setVolume() {
-        this.$refs.player.volume = this.volume
+        this.player.volume = this.volume
     },
     updateDuration(){
         this.songLength = this.player.duration
@@ -132,6 +134,7 @@ export default {
     },
     updatePlayerTimer(){
         this.player.currentTime = this.songTimer
+        this.player.play()
     }
   },
   watch: {
