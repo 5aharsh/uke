@@ -1,17 +1,17 @@
 <template>
   <!-- Have to add return false for each <a> @clicks -->
-  <div class="container-fluid d-flex h-100 flex-column" id="nav-menu">
-    <a class="row flex-fill d-flex justify-content-start" id="browse" href="#">
-      <div class="col portlet-container portlet-dropzone my-auto">Browse</div>
+  <div class="row" id="nav-menu">
+    <a class="col" id="library" href="#">
+      Library
     </a>
-    <a class="row flex-fill d-flex justify-content-start" id="playlist" href="#">
-      <div class="col portlet-container portlet-dropzone my-auto">Playlist</div>
+    <a class="col" id="playlist" href="#">
+      Playlist
     </a>
-    <a class="row flex-fill d-flex justify-content-start" id="search" href="#">
-      <div class="col portlet-container portlet-dropzone my-auto">Search</div>
+    <a class="col" id="search" href="#">
+      Search
     </a>
-    <a class="row flex-fill d-flex justify-content-start" id="settings" href="#">
-      <div class="col portlet-container portlet-dropzone my-auto">Settings</div>
+    <a class="col" id="settings" href="#">
+      Settings
     </a>
   </div>
 </template>
@@ -25,18 +25,49 @@ export default {
 <style>
 
 #nav-menu {
+    text-align: center;
     padding: 0;
 }
 
 #nav-menu a {
-    text-decoration: none;
+    background: #413f3f;
     color: #fff;
-    background: #413f3f !important;
-    border-bottom: 3px solid #fff;
-    box-shadow: inset 5px 1px 1px #000;
+    font-size:18px;
+    font-weight:bold;
+    padding-top:20px;
+    padding-bottom:20px;
+    text-decoration: none;
 }
 
-#browse {
+#nav-menu a:hover {
+    background: #1f1d1d;
+    color: #3ac975;
+}
+
+#nav-menu a,
+#nav-menu a:after,
+#nav-menu a:before {
+  transition: all 0.25s;
+}
+
+#nav-menu a:after {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  width: 0%;
+  content: '';
+  color: transparent;
+  background: #3ac975;
+  height: 5px;
+}
+
+#nav-menu a:hover:after {
+  width: 100%;
+}
+
+#library {
     background: #165e8f;
 }
 
